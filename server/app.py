@@ -9,4 +9,4 @@ def home():
     return jsonify({"message": "Lab Inventory Backend is running!"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
