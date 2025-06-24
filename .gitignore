@@ -1,0 +1,28 @@
+# Node.js (React frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# React build output
+/build
+
+# Python (Flask backend)
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+env.bak/
+*.sqlite3
+
+# VSCode settings (optional)
+.vscode/
+
+# Environment variables
+.env
+
+# Mac system files (optional)
+.DS_Store
