@@ -5,8 +5,14 @@ const App = ()=> {
   const [rgtLot, setRgtLot]= useState("")
   const [expDate, setExpDate] = useState("")
   const [rgtQuant, setRgtQuant] = useState("")
+  const [reagentList, setReagentList] = useState([])
   // const [minAmount, setMinAmount] = useState("")
 
+  const fecthReagentList = ()=>{
+    fetch("http://localhost:5050/api/reagent")
+      .then((resp)=>resp.json())
+      .then((data)=>{setReagentList(data)})
+  }
 
   const addReagent = ()=>{
     const option={
@@ -34,7 +40,9 @@ const App = ()=> {
         // setMinAmount("");
      })
   }
-
+useEffect(()=>{
+  fecthReagentList();
+},[])
   return (
     <div className="text-center mt-5">
 
@@ -49,6 +57,31 @@ const App = ()=> {
       <input onChange={(e)=>setRgtQuant(e.target.value)} value={rgtQuant} type ="text"/>
       <button className="btn btn-primary" onClick={addReagent}>Submit</button>
     </form>
+    <div>
+      <h2>REAGENT INVENTORY</h2>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Reagent</th>
+            <th>Lot Number</th>
+            <th>Exp Date</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reagentList.map((item,index)=>(
+            <tr key={index}>
+            <td>{item.name}</td>
+            <td>{item.lot_number}</td>
+            <td>{item.exp_date}</td>
+            <td>{item.quantity}</td>
+            </tr>
+          )   
+          )}
+        </tbody>
+        </table>
+      
+    </div>
       
     </div>
   )
