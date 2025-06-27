@@ -44,7 +44,7 @@ def update_reagent():
     reagent = Reagent.query.get(id)
 
 #code below is the route DELETE method to delete reagents
-@api.route("/reagent/<int:id>", methods=["DELETE"])
+@api.route("/reagent/<id>", methods=["DELETE"])
 def delete_reagent(id):
     reagent = Reagent.query.get(id)
     if not reagent:

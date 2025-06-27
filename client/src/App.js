@@ -8,7 +8,7 @@ const App = ()=> {
   const [reagentList, setReagentList] = useState([])
   // const [minAmount, setMinAmount] = useState("")
 
-  const fecthReagentList = ()=>{
+  const fetchReagentList = ()=>{
     fetch("http://localhost:5050/api/reagent")
       .then((resp)=>resp.json())
       .then((data)=>{setReagentList(data)})
@@ -40,8 +40,21 @@ const App = ()=> {
         // setMinAmount("");
      })
   }
+
+ const deleteReagent = (id)=>{
+  const option ={
+    method: "DELETE",
+    headers:{
+      "Content-Type": "application/json"
+    },
+  }
+  fetch(`http://localhost:5050/api/reagent/${id}`, option)
+    .then((resp)=>console.log("DELETED", resp))
+    .then(()=>fetchReagentList())
+ }
+
 useEffect(()=>{
-  fecthReagentList();
+  fetchReagentList();
 },[])
   return (
     <div className="text-center mt-5">
@@ -49,7 +62,7 @@ useEffect(()=>{
     <form>
       <label><strong>Reagent</strong></label>
       <input className ="me-2" onChange={(e)=>setReagent(e.target.value)} value={reagent} type="text"/>
-      <label><strong>Lot NUmber</strong></label>
+      <label><strong>Lot Number</strong></label>
       <input className ="me-2" onChange={(e)=>setRgtLot(e.target.value)} value={rgtLot} type="text"/>
       <label><strong>Exp Date</strong></label>
       <input className ="me-2"  onChange={(e)=>setExpDate(e.target.value)} value={expDate} type="text"/>
@@ -75,6 +88,12 @@ useEffect(()=>{
             <td>{item.lot_number}</td>
             <td>{item.exp_date}</td>
             <td>{item.quantity}</td>
+            <td><button className= "btn btn-danger mt-2"
+                    onClick={
+                    ()=> deleteReagent(item.id)}>
+                    DELETE
+                 </button>
+            </td>
             </tr>
           )   
           )}
